@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndStudy/2022MC/MobileComputing/app/src/main/res/layout-land/activity_main_alter.xml" value="0.1" />
         <entry key="..\:/AndStudy/2022MC/MobileComputing/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/AndStudy/2022MC/MobileComputing/app/src/main/res/layout/activity_main_alter.xml" value="0.1" />
         <entry key="..\:/AndStudy/2022MC/MobileComputing/app/src/main/res/layout/preference.xml" value="0.1" />
       </map>
     </option>

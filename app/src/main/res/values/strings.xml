@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">MobileComputing</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -23,4 +22,7 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="Garo">Garo</string>
+    <string name="Sero">Sero</string>
+    <string name="app_name">모바일컴퓨팅</string>
 </resources>

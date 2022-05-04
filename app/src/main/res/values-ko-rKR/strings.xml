@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MobileComputing</string>
+    <string name="Garo">가로</string>
+    <string name="Sero">세로</string>
+</resources>
