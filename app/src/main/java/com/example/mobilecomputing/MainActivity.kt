@@ -1,11 +1,14 @@
 package com.example.mobilecomputing
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.*
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
@@ -33,12 +36,19 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.btnSub.setOnClickListener {
-            val intent: Intent = Intent(this, SubActivity::class.java).apply{
-                putExtra("next", "level")
+            val intent:Intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:114")).apply {
+            putExtra("next", "level")
             }
             intent.putExtra("num",30)
             intent.putExtra("edit",binding.editText.text.toString())
-            reqLauncher.launch(intent)
+
+            try{
+//                reqLauncher.launch(intent)
+                startActivity(intent)
+            } catch (e:ActivityNotFoundException) {
+                Toast.makeText(applicationContext, "No app for action", Toast.LENGTH_LONG).show()
+            }
+
         }
     }
 }

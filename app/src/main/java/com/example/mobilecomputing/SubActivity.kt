@@ -9,7 +9,7 @@ class SubActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = SubActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        (intent.getIntExtra("num", 0).toString()+" / "+intent.getStringExtra("next")).also {
+        (intent.getIntExtra("num", 0).toString()+" / "+intent.getStringExtra("next")+"/"+intent.data).also {
             binding.txtView1.text = it
         }
         binding.txtView2.text = intent.getStringExtra("edit")
