@@ -11,6 +11,7 @@
         android:theme="@style/Theme.MobileComputing">
         <activity
             android:name=".SubActivity"
+            android:parentActivityName=".MainActivity"
             android:exported="true">
         </activity>
         <activity

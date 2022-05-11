@@ -4,7 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.*
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.AppBarConfiguration
 import com.example.mobilecomputing.databinding.ActivityMainAlterBinding
@@ -15,13 +19,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         var binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val reqLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            result:ActivityResult ->
+                if(result.resultCode == RESULT_OK){
+                    Log.d("TAG", "return")
+                    val intent = result.data
+                    val clickedBtn :String? = intent?.getStringExtra("res")
+                    "btn : $clickedBtn".also{ binding.txtMainView1.text = it}
+                }
+        }
+
+
+
         binding.btnSub.setOnClickListener {
             val intent: Intent = Intent(this, SubActivity::class.java).apply{
                 putExtra("next", "level")
             }
             intent.putExtra("num",30)
             intent.putExtra("edit",binding.editText.text.toString())
-            startActivity(intent)
+            reqLauncher.launch(intent)
         }
     }
 }

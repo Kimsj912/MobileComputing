@@ -13,5 +13,19 @@ class SubActivity : AppCompatActivity() {
             binding.txtView1.text = it
         }
         binding.txtView2.text = intent.getStringExtra("edit")
+
+        binding.btn1.setOnClickListener{
+            intent.putExtra("res","이것")
+        }
+        binding.btn2.setOnClickListener{
+            intent.putExtra("res","저것")
+        }
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        setResult(RESULT_OK, intent)
+        finish()
+        return true
     }
 }
