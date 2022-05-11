@@ -11,13 +11,18 @@ import com.example.mobilecomputing.databinding.ActivityMainAlterBinding
 import com.example.mobilecomputing.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val intent: Intent = Intent(this, SubActivity::class.java)
-        startActivity(intent)
-
+        var binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.btnSub.setOnClickListener {
+            val intent: Intent = Intent(this, SubActivity::class.java).apply{
+                putExtra("next", "level")
+            }
+            intent.putExtra("num",30)
+            intent.putExtra("edit",binding.editText.text.toString())
+            startActivity(intent)
+        }
     }
 }
 
