@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
             try{
 //                reqLauncher.launch(intent)
-                startActivity(intent)g
+                startActivity(intent)
             } catch (e:ActivityNotFoundException) {
                 Toast.makeText(applicationContext, "No app for action", Toast.LENGTH_LONG).show()
             }
