@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/counterTxt"
@@ -13,6 +13,7 @@
         android:gravity="center"
         android:text="MainActivity"
         android:textSize="30sp" />
+
     <Button
         android:id="@+id/counterBtn"
         android:layout_width="wrap_content"
