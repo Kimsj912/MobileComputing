@@ -30,7 +30,7 @@ class MyAdapter(private var dataSet: MutableList<String>):RecyclerView.Adapter<M
         val binding = (holder as MyViewHolder).binding
         binding.itemText.text = dataSet[position]
         binding.itemRoot.setOnClickListener {
-            Log.d("TAG", "position $position clicked")
+            Log.d("TAG", "position $position counter ${holder.counter} clicked")
         }
         binding.itemRoot.setOnLongClickListener {
             Log.d("TAG", "position $position long clicked")
