@@ -1,14 +1,17 @@
 package com.example.mobilecomputing
 
 import android.content.ContentValues
+import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobilecomputing.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    val dbHelper = MyDatabase.MyDbHelper(this)
+    val dbHelper = MyDbHelper.MyDbHelper(this)
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,17 +25,17 @@ class MainActivity : AppCompatActivity() {
         )
         for (entry in entryArr) {
             val values = ContentValues().apply {
-                put(MyDatabase.MyDBContract.MyEntry.c1, entry.c1)
-                put(MyDatabase.MyDBContract.MyEntry.c2, entry.c2)
-                put(MyDatabase.MyDBContract.MyEntry.c3, entry.c3)
-                put(MyDatabase.MyDBContract.MyEntry.c4, entry.c4)
-                put(MyDatabase.MyDBContract.MyEntry.c5, entry.c5)
+                put(MyDbHelper.MyDbHelper.MyEntry.c1, entry.c1)
+                put(MyDbHelper.MyDbHelper.MyEntry.c2, entry.c2)
+                put(MyDbHelper.MyDbHelper.MyEntry.c3, entry.c3)
+                put(MyDbHelper.MyDbHelper.MyEntry.c4, entry.c4)
+                put(MyDbHelper.MyDbHelper.MyEntry.c5, entry.c5)
             }
             Log.d("TAG", values.toString())
-            val newRowId = db?.insert(MyDatabase.MyDBContract.MyEntry.TABLE_NAME, null, values)
+            val newRowId = db?.insert(MyDbHelper.MyDbHelper.MyEntry.TABLE_NAME, null, values)
             Log.d("TAG", newRowId.toString())
         }
-        val getList = selectAll()
+        val getList = dbHelper.selectAll()
         val adapter = MyAdapter(getList)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
@@ -46,44 +49,34 @@ class MainActivity : AppCompatActivity() {
                 binding.go.text.toString(),
             )
             val values = ContentValues().apply{
-                put(MyDatabase.MyDBContract.MyEntry.c1, elem.c1)
-                put(MyDatabase.MyDBContract.MyEntry.c2, elem.c2)
-                put(MyDatabase.MyDBContract.MyEntry.c3, elem.c3)
-                put(MyDatabase.MyDBContract.MyEntry.c4, elem.c4)
-                put(MyDatabase.MyDBContract.MyEntry.c5, elem.c5)
+                put(MyDbHelper.MyDbHelper.MyEntry.c1, elem.c1)
+                put(MyDbHelper.MyDbHelper.MyEntry.c2, elem.c2)
+                put(MyDbHelper.MyDbHelper.MyEntry.c3, elem.c3)
+                put(MyDbHelper.MyDbHelper.MyEntry.c4, elem.c4)
+                put(MyDbHelper.MyDbHelper.MyEntry.c5, elem.c5)
             }
             Log.d("TAG", values.toString())
-            val newRowId = db?.insert(MyDatabase.MyDBContract.MyEntry.TABLE_NAME, null, values)
-            Log.d("TAG", newRowId.toString())
-            val newList = selectAll()
+            try{
+                val newRowId = db?.insertOrThrow(MyDbHelper.MyDbHelper.MyEntry.TABLE_NAME, null, values)
+                Log.d("TAG", newRowId.toString())
+            } catch (e: SQLiteConstraintException){
+                db?.update(MyDbHelper.MyDbHelper.MyEntry.TABLE_NAME, values, "${MyDbHelper.MyDbHelper.MyEntry.c1} LIKE ?", arrayOf(elem.c1))
+            }
+            val newList = dbHelper.selectAll()
             adapter.setList(newList)
             adapter.notifyDataSetChanged()
             db.close()
         }
-    }
-    fun selectAll(): kotlin.collections.MutableList<MyElement> {
-        val readList = mutableListOf<MyElement>()
-        val db = dbHelper.readableDatabase
-        val cursor = db.rawQuery(
-            "SELECT * FROM " + MyDatabase.MyDBContract.MyEntry.TABLE_NAME + ";",
-            null
-        )
-        with(cursor) {
-            while (moveToNext()) {
-                readList.add(
-                    MyElement(
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getString(3),
-                        cursor.getString(4),
-                        cursor.getString(5)
-                    )
-                )
+        adapter.setItemClickListener(object: MyAdapter.OnItemClickListener{
+            override fun onClick(v: View, position: Int) {
+                db = dbHelper.writableDatabase
+                db?.delete(MyDbHelper.MyDbHelper.MyEntry.TABLE_NAME, "${MyDbHelper.MyDbHelper.MyEntry.c1} = ?", arrayOf(adapter.getElement(position).c1))
+                val newList = dbHelper.selectAll()
+                Toast.makeText(applicationContext,"${adapter.getElement(position).c1} is deleted", Toast.LENGTH_SHORT).show()
+                adapter.setList(newList)
+                adapter.notifyDataSetChanged()
             }
-            cursor.close()
-            db.close()
-            return readList
-        }
+        })
     }
 
 }

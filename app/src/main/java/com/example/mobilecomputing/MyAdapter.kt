@@ -3,7 +3,9 @@ package com.example.mobilecomputing
 import android.system.Os.remove
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobilecomputing.databinding.ListItemBinding
 
@@ -16,6 +18,16 @@ class MyAdapter(private var dataSet: MutableList<MyElement>):RecyclerView.Adapte
     fun setList(newList: MutableList<MyElement>){
         this.dataSet = newList
     }
+    fun getElement(pos: Int): MyElement{
+        return dataSet[pos]
+    }
+    private lateinit var itemClickListener : OnItemClickListener
+    interface OnItemClickListener {
+        fun onClick(v: View, position: Int)
+    }
+    fun setItemClickListener(onItemClickListener: OnItemClickListener) {
+        this.itemClickListener = onItemClickListener
+    }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val binding = (holder as MyViewHolder).binding
@@ -24,5 +36,8 @@ class MyAdapter(private var dataSet: MutableList<MyElement>):RecyclerView.Adapte
         binding.loc.text = dataSet[position].c3
         binding.who.text = dataSet[position].c4
         binding.go.text = dataSet[position].c5
+        binding.elem.setOnClickListener{
+            itemClickListener.onClick(it, position)
+        }
     }
 }
