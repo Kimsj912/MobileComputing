@@ -7,6 +7,31 @@
     >
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager2"
+        android:layout_weight="4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="4"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="0dp" >
+
+        <TextView
+            android:id="@+id/mainTxt"
+            android:text="무언가"
+            android:layout_gravity="center"
+            android:textSize="40sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/foodsSpinner"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+
 </LinearLayout>

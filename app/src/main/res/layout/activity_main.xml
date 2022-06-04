@@ -1,24 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/item_root"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/editTxt"
+    <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <Button
-        android:id="@+id/addBtn"
-        android:text="add Item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:columnCount="2" >
+
+        <TextView
+            android:text="이름: "
+            android:textSize="20sp" />
+        <EditText
+            android:id="@+id/name"
+            android:layout_gravity="fill_horizontal" />
+        <TextView
+            android:text="언제: "
+            android:textSize="20sp" />
+        <EditText
+            android:id="@+id/date"
+            android:layout_gravity="fill_horizontal" />
+        <TextView
+            android:text="어디: "
+            android:textSize="20sp" />
+        <EditText
+            android:id="@+id/loc"
+            android:layout_gravity="fill_horizontal" />
+        <TextView
+            android:text="누구: "
+            android:textSize="20sp" />
+        <EditText
+            android:id="@+id/who"
+            android:layout_gravity="fill_horizontal" />
+        <TextView
+            android:text="갔나?: "
+            android:textSize="20sp" />
+        <EditText
+            android:id="@+id/go"
+            android:layout_gravity="fill_horizontal" />
+        <Button
+            android:id="@+id/submit"
+            android:text="등록" />
+    </GridLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 </LinearLayout>
