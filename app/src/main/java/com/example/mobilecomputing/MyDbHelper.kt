@@ -58,7 +58,7 @@ class MyDbHelper {
                             cursor.getString(2),
                             cursor.getString(3),
                             cursor.getString(4)
-                        )ㅁ옸
+                        )
                     )
                 }
                 cursor.close()
