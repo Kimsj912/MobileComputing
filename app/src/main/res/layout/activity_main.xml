@@ -7,22 +7,26 @@
     android:gravity="center_horizontal"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnGal"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="Button" />
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="Button2"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="Gallery App" />
-    <Button
-        android:id="@+id/btnReset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="Reset"/>
-    <ImageView
-        android:id="@+id/imageView"
-        android:src="@drawable/ic_launcher_background"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:textSize="30sp"/>
 
 </LinearLayout>

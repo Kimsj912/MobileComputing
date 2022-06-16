@@ -12,40 +12,33 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobilecomputing.databinding.ActivityMainBinding
+import kotlinx.coroutines.*
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        val binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val requestGalleryLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()){
-            try{
-                Log.d("TAG","$it")
-                Log.d("TAG","${it.data!!}")
-                Log.d("TAG","${it.data!!.data!!}")
-
-                val inputStream = contentResolver.openInputStream(it.data!!.data!!)
-                val bitmap = BitmapFactory.decodeStream(inputStream,null,null)
-                inputStream?.close()
-                if(bitmap!=null){
-                    binding.imageView.setImageBitmap(bitmap)
-                }else{
-                    Log.d("TAG","null")
+        Toast.makeText(applicationContext,"Start", Toast.LENGTH_LONG).show()
+        binding.btn.setOnClickListener {
+            CoroutineScope(Dispatchers.Default).launch {
+                launch {
+                    for(i in 1..10) {
+                        delay(1000)
+                        withContext(Dispatchers.Main){
+                            binding.count.text = i.toString()
+                            Log.d("TAG","$i")
+                        }
+                    }
                 }
-            }catch (e:Exception){
-                e.printStackTrace()
             }
         }
-        binding.btnGal.setOnClickListener{
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            requestGalleryLauncher.launch(intent)
-        }
-        binding.btnReset.setOnClickListener{
-            binding.imageView.setImageResource(R.drawable.ic_launcher_background)
+        binding.btn2.setOnClickListener {
+            Toast.makeText(applicationContext,"HiHi", Toast.LENGTH_LONG).show()
+            Log.d("TAG","Button2 Clicked")
+
         }
     }
 
