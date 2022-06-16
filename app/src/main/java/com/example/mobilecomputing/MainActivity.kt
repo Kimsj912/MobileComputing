@@ -24,16 +24,14 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(applicationContext,"Start", Toast.LENGTH_LONG).show()
         binding.btn.setOnClickListener {
             CoroutineScope(Dispatchers.Default).launch {
-                val sum = CoroutineScope(Dispatchers.Default).async {
-                    var tmpSum =-1
+                launch{
                     for (i in 1..10){
-                        delay(100)
-                        tmpSum+=i
+                        delay(1000)
+                        withContext(Dispatchers.Main){
+                            binding.count.text=i.toString()
+                            Log.d("TAG","$i")
+                        }
                     }
-                    tmpSum
-                }.await()
-                withContext(Dispatchers.Main){
-                    binding.count.text=sum.toString()
                 }
             }
         }
